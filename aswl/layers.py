@@ -5,9 +5,7 @@ from typing import Any, Optional, List
 import tensorflow as tf
 from keras.layers import * # type: ignore
 
-# attention based conv2d
 class AttentionLayer(Layer):
-    # properties
     _attention: tf.Variable
     _attention_layer: Layer
     _has_attention_applied: bool
@@ -39,7 +37,6 @@ class AttentionLayer(Layer):
     def has_attention_applied(self, has_attention_applied: bool):
         self._has_attention_applied = has_attention_applied
 
-    # constructor
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -47,11 +44,9 @@ class AttentionLayer(Layer):
         self.attention = tf.Variable(0.5, dtype=tf.float32, trainable=True, aggregation=tf.VariableAggregation.MEAN, name='attention')
         self._has_attention_applied = False
 
-    # build layer
     def build(self, input_shape: tuple):
         self._attention_layer.build(input_shape)
 
-    # call layer
     def call(self, input_data: Any) -> tf.Tensor:
         # call attention layer
         y: tf.Tensor = self._attention_layer(input_data)
@@ -62,7 +57,6 @@ class AttentionLayer(Layer):
             y = y * self.attention # type: ignore
         return y
 
-# attention based conv2d
 class AttentionConv2D(AttentionLayer):
     # properties alias
     _attention_layer: Conv2D

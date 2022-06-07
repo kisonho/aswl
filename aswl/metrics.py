@@ -7,15 +7,12 @@ from keras.metrics import * # type: ignore
 # import core modules
 from .keras import CompressibleModel as Model
 
-# average pruning ratio metrics
 class AveragePruningRatio(Metric):
-    # properties
     _pruning_factor: float
     _model: Model
     _pruning_ratio: tf.Variable
     _gpu_num_reduce: int
 
-    # constructor
     def __init__(self, model: Model, pruning_factor: float, gpu_num_reduce: int=1, **kwargs):
         super().__init__(**kwargs)
 
@@ -27,15 +24,12 @@ class AveragePruningRatio(Metric):
         # initialize pruning ratio
         self._pruning_ratio = self.add_weight(name='avg_pruning_ratio', initializer='zeros', dtype=tf.float64)
 
-    # get result
     def result(self) -> tf.Tensor:
-        return self._pruning_ratio
+        return tf.convert_to_tensor(self._pruning_ratio)
 
-    # reset state
     def reset_state(self):
         pass
 
-    # update state
     def update_state(self, *args, **kwargs) -> tf.Tensor:
         # calculate current pruning ratios
         attentions = tf.convert_to_tensor(self._model.attentions, tf.float64)
