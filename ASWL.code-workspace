@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"python.jediEnabled": false,
+		"python.pythonPath": "C:\\Applications\\Anaconda3\\envs\\TensorFlow\\python.exe"
+	}
+}
