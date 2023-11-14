@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"python.jediEnabled": false,
+		"python.pythonPath": "~/Developer/tensorflow/bin/python"
+	}
+}
